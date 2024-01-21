@@ -7,6 +7,7 @@ on:
 jobs:
   pick-presenter:
     runs-on: ubuntu-latest
+    if: github.actor == 'isabel-noh'
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -16,10 +17,12 @@ jobs:
         run: echo "::set-output name=name::$(shuf -n 1 names.txt)"
 
       - name: README.md Update
-        run: sed -i "/| ---- |/a | 2   |    |           |        | ${{ steps.pick_presenter.outputs.name }}              |   |" README.md
+        run: |
+          sed -i "/| ---- |/a | 2   |    |           |        | ${{ steps.pick_presenter.outputs.name }}              |   |" README.md
 
       - name: Commit & Push
-        run: git config --global user.email 'actions@github.com'
+        run: |
+          git config --global user.email 'actions@github.com'
           git config --global user.name 'GitHub Actions'
           git add README.md
           git commit -m "Update README.md"
