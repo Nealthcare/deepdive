@@ -11,6 +11,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.SECRET_API_KEY }}
 
       - name: Pick Presenter Randomly
         id: pick_presenter
@@ -24,6 +26,7 @@ jobs:
         run: |
           git config --global user.email 'nohhyunjeong93@gmail.com'
           git config --global user.name 'isabel-noh'
+
           git add README.md
           git commit -m "Update README.md"
           git push
